@@ -1,0 +1,160 @@
+// const express = require('express')
+// const app = express()
+
+// const port = 3001
+
+// //const bodyparser = require('body-parser');
+// const Razorpay = require('razorpay');
+// // app.vite(require('body-parser').json());
+
+// // //Partner Authentication
+// // var instance = new Razorpay({
+// //     key_id: 'rzp_test_ACsC416du03Waj',
+// //     key_secret: 'zqQwZvV4NOBaKAwSvgUAPCwI',
+    
+// //   });
+  
+// //   //instance.orders.all().then(console.log).catch(console.error);
+// //   app.get('/', (req,res) => {
+// //     res.sendFile("standard.html", {root: __dirname});
+// //   })
+
+
+// //   app.post('/create/orderId', (req,res) => {
+// //     console.log("create orderId request", req.body);
+// //   var options = {
+// //     amount: req.body.amount,  // amount in the smallest currency unit
+// //     currency: "INR",
+// //     receipt: "oder_rcptid"
+// //   };
+// //   instance.orders.create(options, function(err, order) {
+// //     console.log(order);
+// //     res.send({orderId :order.id})
+// //   });
+// // })
+
+
+// //chatgpt for generate link
+
+// //const Razorpay = require('razorpay');
+
+// const razorpay = new Razorpay({
+//   key_id: 'rzp_test_ACsC416du03Waj',
+//    key_secret: 'zqQwZvV4NOBaKAwSvgUAPCwI',
+// });
+
+// // Function to generate a payment link
+// // async function generatePaymentLink(amount, description, customerEmail, customerMobile) {
+// //   try {
+// //     const options = {
+// //       amount: amount * 100, // Razorpay accepts amount in paise
+// //       currency: 'INR', // Change this to your currency if not INR
+// //       receipt: 'receipt_order_74394', // Unique receipt id
+// //       payment_capture: 1, // Auto capture payment
+// //       notes: {
+// //         description: description,
+// //       },
+// //       customer: {
+// //         email: customerEmail,
+// //         contact: customerMobile,
+// //       },
+// //     };
+
+// //     const order = await razorpay.orders.create(options);
+
+// //     // Generate payment link
+// //     const paymentLink = `https://example.com/payment/${order.id}`; // Replace example.com with your domain
+
+// //     return paymentLink;
+// //   } catch (error) {
+// //     console.error('Error generating payment link:', error);
+// //     throw error;
+// //   }
+// // }
+
+// // // Usage example
+// // const amount = 5; // Amount in your currency
+// // const description = 'Payment for XYZ';
+// // const customerEmail = 'rutujakhurpe@gmail.com';
+// // const customerMobile = '7892745266';
+
+// // generatePaymentLink(amount, description, customerEmail, customerMobile)
+// //   .then(paymentLink => {
+// //     console.log('Payment link:', paymentLink);
+// //     // Send the payment link to the client (via SMS, email, etc.)
+// //   })
+// //   .catch(error => {
+// //     console.error('Error:', error);
+// //   });
+
+
+// //bard for generate payment link and sms
+
+// //create a new order
+// // const order = await razorpay.orders.create({
+// //   amount: 10,
+// //   currency: 'INR',
+// //   receipt: 'receipt_123456'
+// // });
+
+// // //get the sms code
+// // const smsCode = await razorpay.sms.send({
+// //   order_id: '1001',
+// //   mobile: '7892745266'
+// // });
+
+// // //verfiy the sms code
+// // const verification = await razorpay.sms.verify({
+// //   order_id: order.id,
+// //   sms_code: smsCode
+// // });
+
+// // //verification is succesfull, you can capture payment
+// // const payment = await razorpay.payments.capture({
+// //   payment_id: verification.payment_id
+// // });
+
+// // //once payment campture u can complete the order
+// // await razorpay.orders.complete({
+// //   order_id: order.id
+// // });
+
+// //bard for sms and payment link geneate
+// async function processPayment() {
+//   try {
+//     // Create a new order
+//     const order = await razorpay.orders.create({
+//       amount: 100.00,
+//       currency: 'INR',
+//       receipt: 'receipt_123456'
+//     });
+
+//     // Get the SMS code
+//     const smsCode = await razorpay.sms.send({
+//       order_id: order.id, // Use the actual order ID
+//       mobile: '7892745266'
+//     });
+
+//     // Verify the SMS code
+//     const verification = await razorpay.sms.verify({
+//       order_id: order.id,
+//       sms_code: smsCode
+//     });
+
+//     // Capture payment
+//     const payment = await razorpay.payments.capture({
+//       payment_id: verification.payment_id
+//     });
+
+//     // Complete the order
+//     await razorpay.orders.complete({
+//       order_id: order.id
+//     });
+
+//     console.log('Payment successful!');
+//   } catch (error) {
+//     console.error('Error processing payment:', error);
+//   }
+// }
+
+// processPayment();
