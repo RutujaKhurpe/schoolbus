@@ -1,99 +1,89 @@
-const express = require('express')
-const app = express()
-const cors = require('cors');
-
-const port = 5000
-const bodyparser = require('body-parser')
-app.use(express.json())
-app.use(express.urlencoded({extended:false}))
+//const express = require('express')
+//const app = express()
+//const cors = require('cors');
+//const app = express();
+//const port = 3001
+//const bodyparser = require('body-parser')
+//app.use(express.json())
+//app.use(express.urlencoded({ extended: false }))
 
 //const bodyparser = require('body-parser');
-const Razorpay = require('razorpay');
-app.use(require('body-parser').json());
-app.use(cors())
+//const Razorpay = require('razorpay');
+//app.use(require('body-parser').json());
+//app.use(cors())
 
-// var instance = new Razorpay({
-//   key_id: 'rzp_test_ACsC416du03Waj',
-//       key_secret: 'zqQwZvV4NOBaKAwSvgUAPCwI',
+//razoray AI generated code
+
+//const port = 3001;
+
+//this is my code of razorpay of node js creating payment link
+// const Razorpay = require('razorpay');
+
+// const instance = new Razorpay({
+//   key_id: 'rzp_test_E5Fns08Fmuc672',
+//   key_secret: 'y79HuGi1kOuZLEe7eJiVoj39',
+
 // });
-//instance.payments.fetch(paymentId)
 
-// app.get('/',(req,res) =>{
-//   res.sendFile('standard.html', {root: __dirname});
+//const createPaymentLink = async () => {
+// app.post('/generate-payment-link', async (req, res) => {
+//   try {
+//     const options = {
+//       amount: 7500,
+//       currency: 'INR',
+//       accept_partial: false,
+//       //first_min_partial_amount: 7500,
+//       reference_id: '#434',
+//       description: 'Payment for policy no #23456',
+//       customer: {
+//         name: 'ganesh Gundal',
+//         contact: '+919923210412',
+//         email: 'ganeshgundal@gmail.com',
+//       },
+//       notify: {
+//         sms: true,
+//         email: true,
+//       },
+//       reminder_enable: false,
+//     };
+
+
+
+//     const paymentLink = await instance.paymentLink.create(options);
+//     console.log(paymentLink);
+//     res.status(200).json(paymentLink);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Failed to generate payment link' });
+//   }
+// });
+
+// app.post('/payment', (re,res) =>{
+//   const reference_id  = req.body.reference_id;
+//   const amount = req.body.amount;
+//   const created_at = req.body.created_at;
+//   const id = req.body.id;
+//   const short_url = req.body.short_url;
+//   const status  = req.body.status;
+
+
 // })
 
-app.post('/order' ,async (req,res) =>{
-  try{
-  const razorpay = new Razorpay({
-    key_id : 'rzp_test_ACsC416du03Waj',
-    key_secret: 'zqQwZvV4NOBaKAwSvgUAPCwI',
 
-  });
-  const options = req.body;
-  const order = await razorpay.orders.create(options);
+//createPaymentLink();
 
-  if(!order) {
-    return res.status(500).send('error');
-  }
-  res.json(order)
-}catch(err){
-  console.log(err)
-  res.status(500).send('error');
-}
-})
-
-app.listen(port ,()=>{
-  console.log("listening on port ", port)
-} )
-
-
-
-//bard for sms and payment link geneate
-// async function processPayment() {
-//   try {
-//     // Create a new order
-//     const order = await razorpay.orders.create({
-//       amount: 100.00,
-//       currency: 'INR',
-//       receipt: 'receipt_123456'
-//     });
-
-//     // Get the SMS code
-//     const smsCode = await razorpay.sms.send({
-//       order_id: order.id, // Use the actual order ID
-//       mobile: '7892745266'
-//     });
-
-//     // Verify the SMS code
-//     const verification = await razorpay.sms.verify({
-//       order_id: order.id,
-//       sms_code: smsCode
-//     });
-
-//     // Capture payment
-//     const payment = await razorpay.payments.capture({
-//       payment_id: verification.payment_id
-//     });
-
-//     // Complete the order
-//     await razorpay.orders.complete({
-//       order_id: order.id
-//     });
-
-//     console.log('Payment successful!');
-//   } catch (error) {
-//     console.error('Error processing payment:', error);
-//   }
-// }
-
-// processPayment();
-
+// Start the server
 // app.listen(port, () => {
-//   console.log(`Server listening on port ${port}`);
-
-//   processPayment().then(() => {
-//     console.log('Payment successful!');
-//   }).catch((error) => {
-//     console.error('Error processing payment:', error);
-//   });
+//   console.log(`Server is running on port ${port}`);
 // });
+
+
+
+
+// //this is formatted date code
+// javascript
+// const unixTimestamp = 1584524459;
+// const date = new Date(unixTimestamp * 1000);
+// const formattedDate = date.toLocaleString();
+
+// console.log(formattedDate);

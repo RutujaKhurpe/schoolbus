@@ -7,10 +7,13 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AuthPage = () => {
-  const [isSignUp, setIsSignUp] = useState(false); // State to track whether to show login or sign up form
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -18,38 +21,123 @@ const AuthPage = () => {
     getValues,
   } = useForm();
 
-//   const onSubmit = (data) => {
-//     // Add your login or sign-up logic here using the data object
-//     if (isSignUp) {
-//       console.log('Sign Up successful', data);
-//     } else {
-//       console.log('Login successful', data);
-//     }
-//   };
+  // const onSubmit = async (data) => {
+  //   try {
+  //     const response = await fetch('http://localhost:3001/signup', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+  
+  //     if (!response.ok) {
+  //       throw new Error(`${response.status} ${response.statusText}`);
+  //     }
+  
+  //     const result = await response.json();
+  //     console.log('Sign Up successful', result);
+  
+  //     // Redirect or show success message after signup
+  //   } catch (error) {
+  //     setError(`Error: ${error.message}`);
+  //   }
+  // };
 
-//chatgpt code
-const onSubmit = (data) => {
-    // Add your login or sign-up logic here using the data object
-    if (isSignUp) {
-      console.log('Sign Up successful', data);
-      axios.post('http://localhost:3001/signup', data)
-        .then(response => {
-          console.log(response.data);
-          // Handle success response
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          // Handle error response
-        });
-    } else {
-      console.log('Login successful', data);
-      // You can make a login request here if needed
+  //chatgpt signupcode
+  const onSignupSubmit = async (data) => {
+    try {
+      const response = await fetch('http://localhost:3001/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log('Sign Up successful', result);
+    } catch (error) {
+      setError(`Error: ${error.message}`);
+    }
+  };
+
+  //chatgpt loginsubmit code
+  const onLoginSubmit = async (data) => {
+    try {
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log('Login successful', result);
+      if (result.isAdmin) {
+        // Redirect to admin page
+        navigate('/admin/*');
+      } else {
+        setError('You are not authorized to access the admin page.');
+      }
+    } catch (error) {
+      setError(`Error: ${error.message}`);
     }
   };
   
+  // const onLoginSubmit = async (data) => {
+  //   try {
+  //     const response = await fetch('http://localhost:3001/login', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+  
+  //     if (!response.ok) {
+  //       throw new Error(`${response.status} ${response.statusText}`);
+  //     }
+  
+  //     const result = await response.json();
+  //     console.log('Login successful', result);
+  //     if (result.isAdmin) {
+  //       // Redirect to admin page
+  //     } else {
+  //       setError('You are not authorized to access the admin page.');
+  //     }
+  //   } catch (error) {
+  //     setError(`Error: ${error.message}`);
+  //   }
+  // };
+  
 
   const toggleForm = () => {
-    setIsSignUp(!isSignUp); // Toggle between login and sign up forms
+    setIsSignUp(!isSignUp);
+    setError('');
+  };
+
+  
+
+  const onSubmit = async (data) => {
+    try {
+      if (isSignUp) {
+        await onSignupSubmit(data);
+      } else {
+        await onLoginSubmit(data);
+      }
+    } catch (error) {
+      setError(`Error: ${error.message}`);
+    }
   };
 
   return (
@@ -103,7 +191,7 @@ const onSubmit = (data) => {
           fullWidth
           type="password"
           label="Confirm Password"
-          {...register('confirmPassword', {
+          {...register('confirmpassword', {
             required: 'Please confirm your password',
             validate: (value) =>
               value === getValues('password') || 'The passwords do not match',
@@ -114,11 +202,23 @@ const onSubmit = (data) => {
           sx={{ mt: 2 }}
         />
       )}
+      {isSignUp && (
+        <FormControlLabel
+          control={<Checkbox {...register('isAdmin')} color="primary" />}
+          label="Register as Admin"
+          sx={{ mt: 1, textAlign: 'left' }}
+        />
+      )}
       <FormControlLabel
         control={<Checkbox {...register('rememberMe')} color="primary" />}
         label="Remember Me"
         sx={{ mt: 1, textAlign: 'left' }}
       />
+      {error && (
+        <Typography variant="body1" color="error" sx={{ mt: 2 }}>
+          {error}
+        </Typography>
+      )}
       <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
         {isSignUp ? 'Sign Up' : 'Login'}
       </Button>

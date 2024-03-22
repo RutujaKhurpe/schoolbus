@@ -1,0 +1,43 @@
+Here's what each file does:
+
+routes/registerRoutes.js:
+
+Defines the routes for handling registration-related operations.
+The getRegistrations route is protected and requires a valid token and admin role.
+The createRegistration route is open for creating new registrations.
+controllers/registerController.js:
+
+Contains the controller functions for handling registration operations.
+The getRegistrations function retrieves all registrations from the database.
+The createRegistration function inserts a new registration into the database.
+routes/paymentRoutes.js:
+
+Defines the routes for handling payment-related operations.
+The generatePaymentLink route is protected and requires a valid token.
+The savePaymentDetails route is open for saving payment details.
+
+controllers/paymentController.js:
+
+Contains the controller functions for handling payment operations.
+The generatePaymentLink function generates a payment link using the Razorpay library.
+The savePaymentDetails function saves payment details in the database.
+Make sure to update the Razorpay key credentials (key_id and key_secret) in controllers/paymentController.js with your actual Razorpay credentials.
+
+
+Note: This implementation assumes that you have a separate file (db.js) for establishing a database connection and exporting it for use in other modules. You'll need to create this file and set up the database connection accordingly.
+
+Additionally, ensure that you have created the necessary tables (users, register, and payment) in your database schema.
+
+Here's what the code does:
+
+Importing Dependencies: The code imports the mysql module, which is the MySQL driver for Node.js.
+Creating a Connection Pool: Instead of creating a single connection to the database, the code creates a connection pool using mysql.createPool. This allows for efficient management of multiple connections and prevents the need to create and destroy connections for every query. The createPool function takes an object with the following properties:
+connectionLimit: The maximum number of connections allowed in the pool (set to 10 in this example).
+host: The hostname of the MySQL server (set to 'localhost').
+user: The username for the MySQL database (set to 'rutuja').
+password: The password for the MySQL database (set to '123').
+database: The name of the MySQL database (set to 'schoolbus').
+Helper Functions:
+getConnection: This function returns a Promise that resolves with a connection from the pool. It uses the pool.getConnection method to get a connection from the pool. If there is an error, the Promise is rejected with the error.
+executeQuery: This function takes a SQL query and an array of values as parameters. It returns a Promise that resolves with the results of the query. The function first gets a connection from the pool using the getConnection helper function. Then, it executes the query using connection.query and passes the query and values as arguments. After the query is executed, the connection is released back to the pool using connection.release(). If there is an error during the query execution, the Promise is rejected with the error.
+Exporting Modules: The getConnection and executeQuery functions are exported as part of the module, allowing them to be imported and used in other parts of the application.

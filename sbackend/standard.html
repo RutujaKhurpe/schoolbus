@@ -10,13 +10,13 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 var options = {
-    "key": "rzp_test_ACsC416du03Waj", // Enter the Key ID generated from the Dashboard
+    "key": "rzp_test_E5Fns08Fmuc672", // Enter the Key ID generated from the Dashboard
     "amount": "500.00", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
     "name": "Acme Corp",
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
-    "order_id": "order_Nedm5BvhJk8q5y", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "order_id": "order_NjNIYXSQfPqmwI", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler": function (response){
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);

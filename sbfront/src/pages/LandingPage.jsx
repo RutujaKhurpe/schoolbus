@@ -1,19 +1,36 @@
 import React from "react";
 import RegistrationForm from "../components/RegistrationForm";
 import Navbar from "../components/Navbar";
-import { Grid, Typography, Paper, List, ListItem, ListItemText, makeStyles } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Paper,
+  List,
+  ListItem,
+  ListItemText,
+  makeStyles,
+} from "@material-ui/core";
+import PhoneIcon from "@material-ui/icons/Phone";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(3),
     minHeight: "300px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    backgroundColor: "#f5f5f5", // Light gray background color
+    alignItems: "center",
     [theme.breakpoints.down("sm")]: {
       marginTop: theme.spacing(2),
     },
+  },
+  imageContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    maxWidth: "100%",
   },
 }));
 
@@ -23,55 +40,57 @@ const LandingPage = () => {
   return (
     <>
       <Navbar />
-      <Grid container justify="center" spacing={2}>
+      <Grid container spacing={3} justifyContent="center">
+        {/* Left Section */}
         <Grid item xs={12} sm={3}>
-          {/* Image at the left side */}
-          <img src="src\assets\Bus.JPG" alt="School Bus Left" style={{ maxWidth: "100%" }} />
+          <div className={classes.imageContainer}>
+            <img
+              src="src\assets\Bus.JPG"
+              alt="School Bus"
+              className={classes.image}
+            />
+          </div>
+          {/* Contact Details */}
+          <Paper elevation={3} className={classes.paper}>
+            <Typography variant="h6" gutterBottom>
+              Contact Us
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              <PhoneIcon /> Phone number: 9766987118
+            </Typography>
+          </Paper>
         </Grid>
+        {/* Middle Section */}
         <Grid item xs={12} sm={6}>
-          {/* Registration form in the middle */}
           <RegistrationForm />
         </Grid>
+        {/* Right Section */}
         <Grid item xs={12} sm={3}>
-          {/* Notes at the right side */}
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="h6" gutterBottom>
               Please Note:
             </Typography>
             <List>
               <ListItem>
-                <ListItemText primary="Transport fees are non-refundable and non-adjustable." />
+                <ListItemText primary="1. Payment for 11 months will be taken." />
               </ListItem>
               <ListItem>
-                <ListItemText primary="We will try to give you the nearest pick up point, need not necessarily be the building gate." />
+                <ListItemText primary="2. 1st Instalment April to Aug. (Paid in March 15th-31st)." />
               </ListItem>
               <ListItem>
-                <ListItemText primary="If the lane is narrow or road repair work is going on then you will have to come further from your stop and drop & pick up tie child to the bus." />
+                <ListItemText primary="3. 2nd Instalment Sept. to Dec. (Paid in Aug. 15th-31st)." />
               </ListItem>
               <ListItem>
-                <ListItemText primary="Payment for 11 months (term is 2 term in year) will be taken:" />
-                <List>
-                  <ListItem>
-                    <ListItemText primary="1st - 21st March to 31st March." />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="2nd - 1st August to 31st August." />
-                  </ListItem>
-                </List>
+                <ListItemText primary="4. 3rd Instalment Jan. to March. (Paid in Dec 15th-31st)." />
               </ListItem>
               <ListItem>
-                <ListItemText primary="All RTO guidelines will be followed:" />
-                <List>
-                  <ListItem>
-                    <ListItemText primary="GPS" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="Lady Attendant" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="CCTV Camera etc." />
-                  </ListItem>
-                </List>
+                <ListItemText primary="5. Payment to be done to Aaradhya Transport." />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="6. All RTO guidelines will be followed including GPS, CCTV Camera, lady Attendant, etc." />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="7. Parents are requested to pay the fees according to the provided rate table in the form." />
               </ListItem>
             </List>
           </Paper>
